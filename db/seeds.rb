@@ -10,6 +10,18 @@ brands = Brand.create([
     {
         name: "Lordstown Motors",
         image_url: "https://upload.wikimedia.org/wikipedia/en/8/87/Lordstown_Motors_logo.png"
+    },
+    {
+        name: "Rivian",
+        image_url: "https://media.rivian.com/wp-content/uploads/2018/11/RivianLogo_Lockup_One_Black.png"
+    },
+    {
+        name: "Fisker",
+        image_url: "https://www.carlogos.org/logo/Fisker-logo-2007-1920x1080.png"
+    },
+    {
+        name: "Lucid Motors",
+        image_url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Lucid_Motors_logo.svg/1280px-Lucid_Motors_logo.svg.png"
     }
 ])
 
