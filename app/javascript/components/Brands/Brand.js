@@ -1,16 +1,18 @@
 import React from 'react'
-
+import { BrowserRouter as Router, Link } from 'react-router-dom'
 const Brand = (props) => {
     return (
         <div className="card">
             <div className="brand-logo">
-                <img src={props.attributes.image_url} alt={props.attricutes.name} />
+                <img src={props.attributes.image_url} alt={props.attributes.name} />
             </div>
-            <div className="brand-name">{props.attricutes.name}</div>
-            <div className="brand-score">{props.attricutes.avg_score}</div>
+            <div className="brand-name">{props.attributes.name}</div>
+            <div className="brand-score">{props.attributes.avg_score}</div>
             <div className="brand-link">
-                <a href={`/brands/${props.attributes.slug}`}>View Brands</a>
+                <Link to={`/brands/${props.attributes.slug}`}>View Brand</Link>
             </div>
         </div>   
     )
 }
+
+export default Brand

@@ -1,35 +1,42 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect, Fragment } from "react";
+import axios from "axios";
+import Brand from "./Brand";
+import styled from 'styled-componenets'
 
 const Brands = () => {
-    const [brands, setBrands] = useState([])
+  const [brands, setBrands] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     // Get all of the brands from api
     // Update brands in our state
-    axios.get('/api/v1/brands.json')
-    .then( resp => {
-        setBrands(resp.data.data)
-    })
-    .catch( resp => console.log(resp) )
-}, [brands.length])
+    axios
+      .get("/api/v1/brands.json")
+      .then((resp) => {
+        setBrands(resp.data.data);
+      })
+      .catch((resp) => console.log(resp));
+  }, [brands.length]);
 
-const list = brands.map( item => {
-    return (<li key={item.attributes.name}>{item.attributes.name}</li>)
-})
+  const grid = brands.map((item) => {
+    return (
+      <Brand 
+      key={item.attributes.name} 
+      attributes={item.attributes} 
+      />
+    );
+  });
 
-    return ( 
-        <div className="home">
-    <div className="header">
+  return (
+    <div className="home">
+      <div className="header">
         <h1>Electric Vehicle Brands</h1>
-            <div className="subheader">Electric Vehicle Reviews</div>
-            </div>
-       <div className="grid">
-       <ul>{list}</ul> 
-       </div>
+        <div className="subheader">Electric Vehicle Reviews</div>
+      </div>
+      <div className="grid">
+        {grid}
+      </div>
     </div>
-        
-    )
-}
+  );
+};
 
-export default Brands
+export default Brands;
