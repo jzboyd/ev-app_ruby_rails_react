@@ -1,7 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import Brand from "./Brand";
-import styled from 'styled-componenets'
+import styled from 'styled-components'
+
+const Home = styled.div``
 
 const Brands = () => {
   const [brands, setBrands] = useState([]);
@@ -16,6 +18,7 @@ const Brands = () => {
       })
       .catch((resp) => console.log(resp));
   }, [brands.length]);
+ 
 
   const grid = brands.map((item) => {
     return (
