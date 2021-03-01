@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const Home = styled.div`
   text-align: center;
-  max-width: 120px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 `
@@ -16,7 +16,7 @@ h1 {
   font-size: 42px;
 }
 `
-const Subheader =styled.div`
+const Subheader = styled.div`
 font-weight: 300;
 font-size: 26px;
 `
@@ -34,23 +34,20 @@ const Brands = () => {
   useEffect(() => {
     // Get all of the brands from api
     // Update brands in our state
-    axios
-      .get("/api/v1/brands.json")
-      .then((resp) => {
-        setBrands(resp.data.data);
-      })
-      .catch((resp) => console.log(resp));
-  }, [brands.length]);
+    axios.get("/api/v1/brands.json")
+      .then(resp => setBrands(resp.data.data))
+      .catch(resp => console.log(resp))
+  }, [brands.length])
  
 
-  const grid = brands.map((item) => {
+  const grid = brands.map( item => {
     return (
       <Brand 
       key={item.attributes.name} 
       attributes={item.attributes} 
       />
-    );
-  });
+    )
+  })
 
   return (
     <Home>

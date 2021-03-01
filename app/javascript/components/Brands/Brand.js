@@ -10,6 +10,9 @@ const Card = styled.div`
 const BrandLogo = styled.div`
     width: 50px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
 
     img {
         height: 50px;
