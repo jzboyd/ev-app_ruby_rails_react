@@ -6,7 +6,7 @@ const Brand = (props) => {
     const [review, setReview] = useState({})
 
     useEffect(() => {
-        const slug = props.match.params/slug
+        const slug = props.match.params.slug
         const url =`/api/v1/brands/${slug}`
         
         axios.get(url)
