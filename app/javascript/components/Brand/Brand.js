@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import Header from './Header'
-import styled from 'styled-components'
-
+import Header from "./Header";
+import ReviewForm from "./ReviewForm";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-    margin-left: auto;
-    margin-right: auto;
-    display: grid;
-    grid-temp;ate-columns: repeat(2, 1fr);
-
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 `
 const Column = styled.div`
-background: #fff;
-height: 100vh;
-overflow: scroll;
+  background: #fff;
+  height: 100vh;
+  overflow: scroll;
 
-&: last-child {
+  &:last-child {
     background: #000;
-}
+  }
 `
 const Main = styled.div`
-    padding-left: 50;
+  padding-left: 50px;
 `
-
 
 const Brand = (props) => {
   const [brand, setBrand] = useState({});
   const [review, setReview] = useState({});
-  const[loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const slug = props.match.params.slug;
@@ -36,30 +34,59 @@ const Brand = (props) => {
 
     axios
       .get(url)
-      .then( resp => {
-          setBrand(resp.data)
-          setLoaded(true)
+      .then((resp) => {
+        setBrand(resp.data);
+        setLoaded(true);
       })
-      .catch( resp => console.log(resp) )
-  }, [])
+      .catch((resp) => console.log(resp));
+  }, []);
+
+  const handleChange = (e) => {
+    e.preventDefault()
+
+    setReview(Object.assign({}, review, {[e.target.name]: e.target.value}))
+
+    console.log('review:', review)
+  }
+
+  const handleSubmit = () => {
+      e.preventDefault()
+
+      const csrfToken = document.querySelector('[name=csrf-token]').content
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
+
+      const brand_id = brand.data.id
+      axios.post('/api/v1/reviews', {review, brand_id})
+      .then(resp => {
+         debugger 
+      })
+      .catch(resp => {})
+  }
   return (
     <Wrapper>
-      <Column>
-          <Main>
-        { loaded &&
-          <Header
-            attributes={brand.data.attributes}
-            reviews={brand.included}
-            />
-        }
-            <div className="reviews"></div>
+      {loaded && (
+        <Fragment>
+          <Column>
+            <Main>
+              <Header
+                attributes={brand.data.attributes}
+                reviews={brand.included}
+              />
+              <div className="reviews"></div>
             </Main>
-            </Column>
-            <Column>
-                <div className="review-form">Review Form Goes Here.</div>
-      </Column>
+          </Column>
+          <Column>
+            <ReviewForm 
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                attributes={brand.data.attributes}
+                review={review}
+            />
+          </Column>
+        </Fragment>
+      )}
     </Wrapper>
-  )
-}
+  );
+};
 
 export default Brand;
