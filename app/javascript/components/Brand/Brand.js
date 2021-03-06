@@ -58,10 +58,19 @@ const Brand = (props) => {
       const brand_id = brand.data.id
       axios.post('/api/v1/reviews', {review, brand_id})
       .then(resp => {
-         debugger 
+         const included = [...brand.included, resp.data.data] 
+         setBrand({...brand, included})
+         setReview({title: '', description: '', score: 0})
       })
       .catch(resp => {})
   }
+
+const setRating = (score, e) => {
+  e.preventDefault()
+
+  setReview({...review, score})
+}
+
   return (
     <Wrapper>
       {loaded && (
@@ -79,6 +88,7 @@ const Brand = (props) => {
             <ReviewForm 
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                setRating={setRating}
                 attributes={brand.data.attributes}
                 review={review}
             />
