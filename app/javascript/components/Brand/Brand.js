@@ -1,8 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
-import axios from "axios";
-import Header from "./Header";
-import ReviewForm from "./ReviewForm";
-import styled from "styled-components";
+import React, { useState, useEffect, Fragment } from "react"
+import axios from "axios"
+import Header from "./Header"
+import ReviewForm from "./ReviewForm"
+import Review from './Review'
+import styled from "styled-components"
 
 const Wrapper = styled.div`
   margin-left: auto;
@@ -55,21 +56,32 @@ const Brand = (props) => {
       const csrfToken = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken
 
-      const brand_id = brand.data.id
+      //get brand id
+      const brand_id = parseInt(brand.data.id)
       axios.post('/api/v1/reviews', {review, brand_id})
-      .then(resp => {
-         const included = [...brand.included, resp.data.data] 
+      .then( resp => {
+         const included = [...brand.included, resp.data] 
          setBrand({...brand, included})
          setReview({title: '', description: '', score: 0})
       })
       .catch(resp => {})
   }
 
+
+//set score
 const setRating = (score, e) => {
   e.preventDefault()
-
   setReview({...review, score})
 }
+
+const reviews = brand.included.map( (item, index) => {
+  return(
+    <Review 
+    key={index}
+    attributes={item.attributes} 
+    />
+  )
+})
 
   return (
     <Wrapper>
@@ -81,7 +93,7 @@ const setRating = (score, e) => {
                 attributes={brand.data.attributes}
                 reviews={brand.included}
               />
-              <div className="reviews"></div>
+              {reviews}
             </Main>
           </Column>
           <Column>
