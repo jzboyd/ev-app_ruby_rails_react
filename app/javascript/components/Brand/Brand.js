@@ -64,7 +64,7 @@ const Brand = (props) => {
          setBrand({...brand, included})
          setReview({title: '', description: '', score: 0})
       })
-      .catch(resp => {})
+      .catch(resp => console.log(resp))
   }
 
 
@@ -74,7 +74,10 @@ const setRating = (score, e) => {
   setReview({...review, score})
 }
 
-const reviews = brand.included.map( (item, index) => {
+
+let reviews
+if (loaded && brand.included) {
+reviews = brand.included.map( (item, index) => {
   return(
     <Review 
     key={index}
@@ -82,6 +85,7 @@ const reviews = brand.included.map( (item, index) => {
     />
   )
 })
+}
 
   return (
     <Wrapper>

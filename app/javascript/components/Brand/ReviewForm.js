@@ -71,7 +71,7 @@ const Field = styled.div`
         padding: 12px;
     }
 `
-const ReviewWrapper = styled.div`
+const Wrapper = styled.div`
     background: #fff;
     padding: 20px;
     background: #000;
@@ -120,7 +120,7 @@ const ReviewForm = (props) => {
         )
     })
     return (
-    <ReviewWrapper>
+    <Wrapper>
         <form onSubmit={props.handleSubmit}>
             <Headline>Have an experience with {props.attributes.name}? Share your review</Headline>
             <Field>
@@ -139,7 +139,7 @@ const ReviewForm = (props) => {
             </Field>
             <SubmitBtn type="submit">Submit Your Review</SubmitBtn>
         </form>
-    </ReviewWrapper>
+    </Wrapper>
         )
 }
 
